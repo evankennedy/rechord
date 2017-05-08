@@ -5,7 +5,7 @@ process.env.BABEL_ENV = 'testing-e2e'
 
 // Enable use of es2015 on required files
 require('babel-register')({
-  ignore: /node_modules/
+	ignore: /node_modules/
 })
 
 // Attach Chai APIs to global scope
