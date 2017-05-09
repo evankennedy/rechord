@@ -1,13 +1,27 @@
 <template>
-	<div id="app">
+	<div @drop.stop.prevent="addFiles($event.dataTransfer.files)" @dragover.stop.prevent id="app">
 		<router-view></router-view>
 	</div>
 </template>
 
 <script>
-	import store from 'renderer/vuex/store'
+	import library from 'renderer/state/library'
+	import Clip from 'renderer/classes/clip'
+
 	export default {
-		store
+		methods: {
+			addFiles(file) {
+				if (file instanceof Array || file instanceof FileList) {
+					return [].forEach.call(file, this.addFiles)
+				}
+
+				new Clip()
+					.load(file)
+					.then(clip => library.clips.push(clip))
+					.catch(console.error)
+			}
+		},
+		library
 	}
 </script>
 
@@ -19,8 +33,12 @@
 		padding: 0;
 	}
 
+	#app,
 	html,
-	body { height: 100%; }
+	body {
+		width: 100%;
+		height: 100%;
+	}
 
 	body {
 		align-items: center;

@@ -1,8 +1,8 @@
 export default [
 	{
 		path: '/',
-		name: 'landing-page',
-		component: require('components/LandingPageView')
+		name: 'edit-view',
+		component: require('components/EditView')
 	},
 	{
 		path: '*',
