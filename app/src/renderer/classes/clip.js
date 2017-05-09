@@ -1,3 +1,5 @@
+import context from 'renderer/state/context'
+
 export default class Clip {
 	constructor() {
 		this.buffer = null
@@ -13,8 +15,10 @@ export default class Clip {
 
 			reader.onloadend = data => {
 				this.loaded = true
-				this.buffer = data.target.result
-				resolve(this)
+				context.decodeAudioData(data.target.result, buffer => {
+					this.buffer = buffer
+					resolve(this)
+				})
 			}
 			reader.readAsArrayBuffer(file)
 
