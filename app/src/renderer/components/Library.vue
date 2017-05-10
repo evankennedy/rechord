@@ -2,10 +2,7 @@
 	<div>
 		<ul v-if="clips.length">
 			<li v-for="clip in clips">
-				{{ clip.name }}:
-				{{ clip.buffer.duration }}s,
-				{{ clip.buffer.sampleRate }} Hz,
-				{{ clip.buffer.numberOfChannels }} channel{{ clip.buffer.numberOfChannels != 1 ? 's' : '' }}
+				<clip :clip="clip"></clip>
 			</li>
 		</ul>
 	</div>
@@ -13,12 +10,16 @@
 
 <script>
 	import library from 'renderer/state/library'
+	import Clip from './Clip'
 
 	export default {
 		data() {
 			return {
 				clips: library.clips
 			}
+		},
+		components: {
+			Clip
 		}
 	}
 </script>
