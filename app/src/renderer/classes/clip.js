@@ -1,21 +1,25 @@
 import context from 'renderer/state/context'
 
+const locals = new WeakMap()
+
 export default class Clip {
 	constructor() {
+		locals.set(this, {})
 		this.buffer = null
 		this.name   = undefined
 		this.loaded = false
 	}
 
 	drawTo(canvas) {
-		console.log('drawing')
-		var context = canvas.getContext("2d");
+		console.log('draw yea yea')
+		var context = canvas.getContext("2d")
 
 		var leftChannel = this.buffer.getChannelData(0)
 		var lineOpacity = canvas.width / leftChannel.length
 		context.save()
 		context.clearRect(0, 0, canvas.width, canvas.height)
-		context.strokeStyle = '#333'
+		console.log(canvas.width/leftChannel.length)
+		context.strokeStyle = `rgba(0,0,0,1)`
 		context.transform(1, 0, 0, 1, 0, canvas.height / 2)
 		context.beginPath()
 		context.moveTo(0 , 0)
